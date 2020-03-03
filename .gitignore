@@ -9,6 +9,10 @@
 *.so
 *.cmt
 *.cmti
+.merlin
+config/.merlin
+_build
+
 test/minigzip
 test/minizip
 test/testzlib
