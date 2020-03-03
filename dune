@@ -2,6 +2,7 @@
  (public_name zip)
  (synopsis "OCaml ZIP interface")
  (modules gzip zip zlib)
+ (libraries stdlib-shims)
  (c_names zlibstubs)
  (c_flags
   (:include c_flags.sexp))
