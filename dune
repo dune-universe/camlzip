@@ -13,7 +13,8 @@
 
 (library
  (public_name camlzip)
- (modules camlzip)
+ (wrapped false)
+ (modules)
  (libraries (re_export zip)))
 
 (rule
