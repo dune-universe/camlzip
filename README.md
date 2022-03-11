@@ -1,3 +1,36 @@
+# Dune port of camlzip
+
+The upstream camlzip package does not use dune. There is an
+[existing PR](https://github.com/xavierleroy/camlzip/pull/31) there that ports
+it to dune but it's several months old and not up to date with recent dune or
+with camlzip itself. This port was based on this original work and some
+[extra adjustments](https://github.com/CraigFe/camlzip/tree/dune-port) by
+@CraigFe.
+
+The upstream camlzip defines a single camlzip opam package and a single, non
+wrapped library that defines three modules `Gzip`, `Zip` and `Zlib`. This
+library is available under two different findlib names: `zip` and `camlzip`.
+The main library and all compiled files are installed under `lib/zip/` and
+an extra `META` file is installed under `lib/camlzip` with the following
+content:
+```
+requires="zip"
+```
+making the library available under both names.
+
+To make the build robust, we need to make sure the library is in fact available
+under those two names. Dune does not let us define a library with a different
+name without defining another package.
+
+The port therefore creates a new `zip` package. The unwrapped library is defined
+as part of this package.
+The `camlzip` package defines a `"zip" {=version}` dependency and comes with an
+empty library named `camlzip` that declares a `(re_export zip)` library
+dependency to avoid problems with `(implicit_transitive_deps false)`.
+Since no `zip` package exist upstream any dependency over either of these comes
+as a `camlzip` dependency, making both packages and library names installed and
+available when using this dune port.
+
 # The CamlZip library
 
 ## DESCRIPTION
