@@ -1,15 +1,20 @@
 (library
- (public_name camlzip)
+ (public_name zip)
  (synopsis "OCaml ZIP interface")
  (modules gzip zip zlib)
  (wrapped false)
- (libraries stdlib-shims)
  (flags (:standard -warn-error -A))
- (c_names zlibstubs)
- (c_flags
-  (:include c_flags.sexp))
+ (foreign_stubs
+  (language c)
+  (names zlibstubs)
+  (flags (:include c_flags.sexp)))
  (c_library_flags
   (:include c_library_flags.sexp)))
+
+(library
+ (public_name camlzip)
+ (modules camlzip)
+ (libraries (re_export zip)))
 
 (rule
  (targets c_flags.sexp c_library_flags.sexp)

@@ -10,6 +10,7 @@
 *.cmt
 *.cmti
 .merlin
+*.install
 config/.merlin
 _build
 
